@@ -1,0 +1,68 @@
+{% extends 'customer/home.html' %}
+{% load static %}
+{% block head %}
+<style>
+  .product {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: 100px;
+  }
+
+  #price {
+    color: green;
+    font-size: 20px;
+    font-weight: 700;
+
+  }
+
+  #discri {
+
+    color: blue;
+    padding-top: 190px;
+  }
+
+  #pp {
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 25px;
+  }
+
+  .amount {
+    display: grid;
+    grid-template-columns: 10% 90%;
+  }
+
+  /* button {
+    font-size: 30px;
+    margin-top: 40px;
+
+  } */
+
+  img {
+    width: 700px;
+    height: 600px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="product">
+  <div>
+    <img src="{{single_product.image.url}}" alt="">
+  </div>
+  <div>
+    <h4 id="discri">{{single_product.name}}</h4>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores nulla repellat quisquam ullam non!
+      Voluptate excepturi dolor accusantium nam eligendi deleniti qui provident culpa, explicabo veniam ut dolore
+      voluptas sint?</p>
+    <div class="amount">
+      <div id="pp">RS:</div>
+      <div id="price">{{single_product.price}}/-</div>
+    </div>
+    <a href="{% url 'customer:addcart' single_product.id %}" id="rzp-button1" type="button" class="btn btn-warning" onclick="pay()">Buy Now</a>
+    <a href="{% url 'customer:addcart' single_product.id %}" class="btn btn-primary">Add cart</a>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,208 @@
+{% extends 'customer/home.html' %}
+{% load static %}
+{% block head %}
+<style>
+  h4 {
+    color: blue;
+    margin-top: 100px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .cart {
+    display: grid;
+    grid-template-columns: 70% 30%;
+
+  }
+
+  .image {
+    height: 100px;
+    width: 100px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h4>CART</h4>
+<br>
+<div class="cart">
+  <div id="first">
+    <table class="table">
+      {% csrf_token %}
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Products</th>
+          <th scope="col">Details</th>
+          <th scope="col">Qantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Total Price</th>
+        </tr>
+      </thead>
+      <tbody class="cart-items">
+        {% for item in items %}
+        <tr class="cart-item">
+          <th scope="row">{{ forloop.counter }}</th>
+          <td><img src="{{ item.product.image.url }}" alt="" class="image"></td>
+          <td>{{ item.product.name }}</td>
+          <td><input type="number" value="{{ item.quantity }}" max="10" min="0" class="quantity"
+              data-item-id="{{item.id}}"></td>
+          <td>{{ item.product.price }}</td>
+          <td class="total-item-price">{{ item.calculate_total_price }}</td>
+          <td> <button type="button" class="remove-cart-item" data-item-id="{{item.id}}">remove</button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div id="second">
+    <table>
+      <tr>
+        <td>Product price</td>
+      </tr>
+      <tr>
+        <td id="totalprice">Total price: {{total}}</td>
+      </tr>
+      <tr>
+        <td><button id="rzp-button1" onclick="pay()">Check out</button></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+  crossorigin="anonymous"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  $(document).ready(function () {
+
+    $.ajaxSetup({
+      headers: {
+        "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
+      }
+    })
+
+    $('.remove-cart-item').click(function () {
+      console.log("test")
+      var item_id = $(this).data('item-id');
+      var $cartItem = $(this).closest('.cart-item');
+
+
+      $.ajax({
+        url: '{% url "customer:remove_cart" %}',
+        type: 'POST',
+        data: {
+          'item_id': item_id
+        },
+        success: function (response) {
+          if (response.status == 'success') {
+            $cartItem.remove();
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        }
+
+      });
+    });
+
+    $('.quantity').change(function () {
+      console.log("test")
+      var quantity = $(this).val();
+      var total_item_price = $(this).parent().siblings('.total-item-price')
+      var total_price1 = $('#totalprice')
+      var item_id = $(this).data('item-id');
+      $.ajax({
+        url: '{% url "customer:update_quantity" %}',
+        type: 'POST',
+        data: {
+          'quantity': quantity,
+          'item_id': item_id
+        },
+        success: function (response) {
+          console.log(response.status)
+          if (response.status == 'success') {
+            console.log(response.data)
+
+            data = response.data
+            console.log(total_item_price)
+            total_item_price.text(data.total_item_price)
+            console.log(total_price1)
+            total_price1.html("total price:" + data.totl_price)
+
+
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        }
+
+      });
+
+    })
+
+   
+
+  });
+  function pay() {
+      
+      $.ajax({
+        url: '{% url "customer:order_product" %}',
+        type: 'POST',       
+        success: function(response) {
+      console.log("payment_id =" + response.id, "amount=",response.amount);
+      var options = {
+        "key": "rzp_test_22LjVo0ujR45W8",
+        "amount": response.amount,
+        "currency": "INR",
+        "name": "ecommerce",
+        "id": "4321",
+        "order_id": response.id,
+        "handler": function (response) {
+          console.log(response.razorpay_payment_id);
+          console.log(response.razorpay_order_id);
+          console.log(response.razorpay_signature)
+          pay_id=response.razorpay_payment_id
+          order_id=response.razorpay_order_id
+          signatur=response.razorpay_signature
+          updatePayment(pay_id,order_id,signatur)
+        },
+        "theme": {
+          "color": "#3399cc"
+        },
+      }
+      var rzpl = new Razorpay(options);
+      rzpl.on('payment.failed',function(response){
+        alter(response.error.code);
+        alter(response.error.description);
+        alter(response.error.source);
+        alter(response.error.step);
+        alter(response.error.reason);
+        alter(response.error.metadata.payment_id);
+    
+      });
+      rzpl.open()
+    }
+      })
+    }
+    function updatePayment(pay_id,order_id,signatur) {
+      console.log(pay_id,order_id,signatur)
+      $.ajax({
+          url : '{% url "customer:updatepayment" %}',
+          type: 'POST',
+          data:{
+            'pay_id':pay_id,
+            'order_id':order_id,
+            'signatur':signatur
+          },
+          success: function(response){
+            console.log(response)
+             alert(response)
+             window.location.reload()
+          }
+      })
+    }
+
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,173 @@
+#buy{
+    color:  aliceblue;
+    font-weight: bold;
+    margin-left: 50px;
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    font-family:Arial, Helvetica, sans-serif;
+    margin-left: 80px;
+    margin-top: 20px;
+}
+.first{
+    text-align: center;
+   color: white;
+    font-size: 20px;
+   padding: 40px;
+   cursor: pointer;
+}
+a{
+    color: rgb(252, 248, 248) !important;
+    text-decoration: none;
+}
+#side{
+    background-color: rgb(59, 58, 58);
+    margin-top: 50px;
+    margin-bottom: 0px;
+    margin-right: -10px;
+    padding-bottom: 600px;
+}
+#one{
+    background-color: rgb(27, 27, 27);
+}
+.navbar{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    background-color: white ;
+    padding: 10px;
+    padding-left: 10px;
+    margin-left:-11px;
+    /* position:static; */
+}
+#search{
+    width: 300px;
+}
+#s_button{
+    margin-right: 565px;
+}
+#login{
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-left: -200px;
+  
+}
+#offcanvas{
+    margin-left: -80px;
+}
+#second{
+    background-color: rgba(219, 212, 212, 0.5);
+}
+.card-img{
+    width: 800px;
+    height: 500px;
+    margin-top: 50px;
+    margin-left: 80px;
+}
+.cards{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+
+.foot{
+    display: grid;
+    grid-template-columns: 30% 20% 20% 30% ;
+    background-color: rgb(0, 0, 0);
+    
+}
+.list{
+    list-style-type: none;
+    margin: 5px;
+    padding: 0;
+    color: white;
+}
+.white{
+    color: white;
+    font-size: 23px;
+}
+#the{
+    color: white;
+}
+#best{
+    margin-left: 30px;
+}
+.cont{
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+#course_btn{
+         position: relative;
+         border: 0px;
+         background-color: rgb(248, 11, 82);
+         height: 50px ;
+         width: 150px;
+         color: white;
+         margin-left: 40px;
+         border-radius: 3px;
+         font-size: 19px;
+         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#know{
+    position: relative;
+    border: 0px;
+    background-color: rgb(252, 14, 53);
+    height: 60px;
+    width: 125px;
+    color: white;
+    border-radius: 3px;
+    font-size: 19px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#placement{
+    position: relative;
+    border: 0px;
+    background-color: rgb(252, 14, 53);
+    height: 55px;
+    width: 145px;
+    color: white;
+    border-radius: 3px;
+    font-size: 19px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.affiliated{
+      display: grid;
+      grid-template-columns: 30% 50% 40%;
+      background-color: rgb(252, 14, 53);
+      margin-left: 50PX;
+      margin-right: 50PX;
+      border-radius: 5PX;
+      margin-top: -90px;
+
+}
+#download{
+    position: relative;
+    border: 0px;
+    background-color: rgb(14, 63, 102);
+    color: white;
+    width: 200px;
+    height: 50px;
+    border-radius: 30px;
+    position: relative;
+    margin-top: 70PX;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 17PX;
+}
+#are{
+     color: white;
+     font-size: 15px;
+     position: relative;
+     top: 20PX;
+     left: 20px;
+     
+}
+#oray{
+    color: white;
+    font-size: 40px;
+    
+}
+#ora{
+    width: 135px;
+    height: 130px;
+    position: relative;
+    margin-left: 100px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

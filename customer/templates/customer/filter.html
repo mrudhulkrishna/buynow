@@ -1,0 +1,22 @@
+{% extends 'customer/home.html' %}
+{% load static %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="card">
+{% for produ in product %}
+<div class="card" style="width: 18rem;">
+    <img src="{{produ.image.url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{produ.name}}</h5>
+      <p class="card-text">{{produ.category.catg_name}}</p>
+      <p class="card-text">Rs {{produ.price}}</p>
+      <a href="{% url 'customer:detail' produ.id %}" class="btn btn-primary">Details</a>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+{% endblock %}

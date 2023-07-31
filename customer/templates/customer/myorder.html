@@ -1,0 +1,46 @@
+{% extends 'customer/home.html' %}
+{% load static %}
+{% block head %}
+ <style>
+    h3{
+        color: blue;
+        margin-top: 100px;
+        text-align: center;
+        font-weight: 700;
+
+    }
+ </style>
+{% endblock %}
+
+{% block content %}
+<h3>Order list</h3>
+<table class="table" style="margin-top: 50px;">
+    
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Products</th>
+        <th scope="col">Discription</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Change</th>
+      </tr>
+   
+      {% for order in orders %}
+      <h4>Or der number: {{order.order_no}}    payment_status:: {{order.payment_status}}</h4>
+      {% for item in order.orderitem_set.all %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>
+          <img style="width: 100px;height: 100px;" src="{{item.product.image.url}}" alt="">
+        </td>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>
+          <!-- <button type="button" class="btn btn-primary">Edit</button> -->
+          <button type="button" class="btn btn-danger">Cancel</button>
+      </td>
+      </tr>
+      {% endfor %}
+      
+      {% endfor %}
+  </table>
+{% endblock %}
